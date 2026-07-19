@@ -1,4 +1,3 @@
-
 //% color="#31C7D5" weight=10 icon="\uf1d1"
  namespace ps2controller {
 
@@ -16,70 +15,70 @@
         `014200000000000000`
 
     function send_command(transmit: Buffer): Buffer {
-        // 处理位顺序
+        // Handle bit order
         transmit = reverse.rbuffer(transmit)
 
         let receive = pins.createBuffer(transmit.length);
 
         pins.digitalWritePin(chipSelect, 0);
-        // 实际发送命令
+        // Actually send the command
         for (let i = 0; i < transmit.length; i++) {
             receive[i] = pins.spiWrite(transmit[i]);
         }
         pins.digitalWritePin(chipSelect, 1)
 
-        // 处理位顺序
+        // Handle bit order
         receive = reverse.rbuffer(receive)
 
         return receive
      }
 
     export enum PS2Button {
-        //% blockId="Left" block="向左方向键"
+        //% blockId="Left" block="D-Pad Left"
         Left,
-        //% blockId="Down" block="向下方向键"
+        //% blockId="Down" block="D-Pad Down"
         Down,
-        //% blockId="Right" block="向右方向键"
+        //% blockId="Right" block="D-Pad Right"
         Right,
-        //% blockId="Up" block="向上方向键"
+        //% blockId="Up" block="D-Pad Up"
         Up,
-        //% blockId="Start" block="开始(Start)按键"
+        //% blockId="Start" block="Start Button"
         Start,
-        //% blockId="Analog_Left" block="右侧摇杆按下"
+        //% blockId="Analog_Left" block="Left Analog Stick Press"
         Analog_Left,
-        //% blockId="Analog_Right" block="左侧摇杆按下"
+        //% blockId="Analog_Right" block="Right Analog Stick Press"
         Analog_Right,
-        //% blockId="Select" block="选择(Select)按键"
+        //% blockId="Select" block="Select Button"
         Select,
-        //% blockId="Square" block="正方形(□)按键"
+        //% blockId="Square" block="Square (□) Button"
         Square,
-        //% blockId="Cross" block="叉型(×)按键"
+        //% blockId="Cross" block="Cross (×) Button"
         Cross,
-        //% blockId="Circle" block="圆型(○)按键"
+        //% blockId="Circle" block="Circle (○) Button"
         Circle,
-        //% blockId="Triangle" block="三角形(△)按键"
+        //% blockId="Triangle" block="Triangle (△) Button"
         Triangle,
-        //% blockId="R1" block="R1按键"
+        //% blockId="R1" block="R1 Button"
         R1,
-        //% blockId="L1" block="L1按键"
+        //% blockId="L1" block="L1 Button"
         L1,
-        //% blockId="R2" block="R2按键"
+        //% blockId="R2" block="R2 Button"
         R2,
-        //% blockId="L2" block="L2按键"
+        //% blockId="L2" block="L2 Button"
         L2,
-        //% blockId="Buttons" block="按键(空缺)"
+        //% blockId="Buttons" block="Buttons (Unused)"
         Buttons,
-        //% blockId="RX" block="右侧摇杆X的值"
+        //% blockId="RX" block="Right Analog Stick X Value"
         RX,
-        //% blockId="RY" block="右侧摇杆Y的值"
+        //% blockId="RY" block="Right Analog Stick Y Value"
         RY,
-        //% blockId="LX" block="左侧摇杆x的值"
+        //% blockId="LX" block="Left Analog Stick X Value"
         LX,
-        //% blockId="LY" block="左侧摇杆Y的值"
+        //% blockId="LY" block="Left Analog Stick Y Value"
         LY,
      };
 
-    //% blockId=robotbit_button_pressed block="设置PS2手柄|%b|按下"
+    //% blockId=robotbit_button_pressed block="Set PS2 Controller|%b|Pressed"
     //% weight=99
     //% blockGap=50
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
